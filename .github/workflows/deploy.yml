@@ -2,9 +2,9 @@ name: Deploy to prod
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ["src/**", "notebooks/**", "resources/**", "databricks.yml", "pyproject.toml"]
+  # push:
+  #   branches: [main]
+  #   paths: ["src/**", "notebooks/**", "resources/**", "databricks.yml", "pyproject.toml"]
 
 concurrency: deploy-prod   # never two deployments at the same time
 
