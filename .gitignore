@@ -1,0 +1,14 @@
+.databricks/
+dist/
+build/
+*.egg-info/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+.env
+.DS_Store
+spark-warehouse/
+metastore_db/
+derby.log
+local_landing/

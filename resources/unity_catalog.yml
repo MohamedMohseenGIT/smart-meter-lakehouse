@@ -1,0 +1,35 @@
+# Unity Catalog objects managed by the bundle (infrastructure as code).
+resources:
+  schemas:
+    landing:
+      catalog_name: ${var.catalog}
+      name: sm_landing
+      comment: Raw files delivered by upstream systems (volume).
+    bronze:
+      catalog_name: ${var.catalog}
+      name: sm_bronze
+      comment: Append-only raw data with lineage columns. Managed by the Lakeflow pipeline.
+    silver:
+      catalog_name: ${var.catalog}
+      name: sm_silver
+      comment: Validated, de-duplicated, typed data. PII vault lives here.
+    gold:
+      catalog_name: ${var.catalog}
+      name: sm_gold
+      comment: Star schema and data products for BI, Genie and ML. No direct PII.
+    ml:
+      catalog_name: ${var.catalog}
+      name: sm_ml
+      comment: Models, training references, drift metrics, RAG chunks and evaluations.
+    ops:
+      catalog_name: ${var.catalog}
+      name: sm_ops
+      comment: Data-quality results, reconciliations, freshness SLOs, watermarks, audit logs.
+
+  volumes:
+    raw:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.landing.name}
+      name: raw
+      volume_type: MANAGED
+      comment: Landing zone for CRM, meter head-end and grid market files.

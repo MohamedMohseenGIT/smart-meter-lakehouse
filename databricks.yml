@@ -1,0 +1,46 @@
+# Databricks Asset Bundle: everything (schemas, volume, pipeline, jobs, wheel) is deployed as code.
+#   databricks bundle validate
+#   databricks bundle deploy -t dev        # per-developer, prefixed resources, schedules paused
+#   databricks bundle run daily_ingest -t dev
+bundle:
+  name: smart_meter_lakehouse
+
+include:
+  - resources/*.yml
+
+artifacts:
+  smartmeter_wheel:
+    type: whl
+    path: .
+    build: python3 -m pip wheel . --no-deps --wheel-dir dist
+
+variables:
+  catalog:
+    description: Unity Catalog catalog. Free Edition provides the `workspace` catalog.
+    default: workspace
+  schedule_pause_status:
+    description: Keep schedules paused by default to stay within Free Edition fair-usage quotas.
+    default: PAUSED
+  customers:
+    description: Number of synthetic customers to simulate.
+    default: "1000"
+  backfill_days:
+    description: Days of history generated on the first run (ML needs >= 120).
+    default: "120"
+
+targets:
+  dev:
+    # Development mode prefixes every resource (schemas, jobs, pipeline) with `dev_<user>_`,
+    # pauses schedules and runs the pipeline in development mode.
+    mode: development
+    default: true
+
+  prod:
+    mode: production
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      schedule_pause_status: PAUSED   # set to UNPAUSED to run daily
+    permissions:
+      - user_name: ${workspace.current_user.userName}
+        level: CAN_MANAGE

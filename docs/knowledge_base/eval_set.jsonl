@@ -1,0 +1,15 @@
+{"question": "What is the supplier margin on the variable tariff?", "expected_source": "tariffs.md", "must_include": ["12 cent"]}
+{"question": "How long is the price guaranteed on the fixed tariff?", "expected_source": "tariffs.md", "must_include": ["12 months", "32 cent"]}
+{"question": "Can the price be negative on the dynamic tariff?", "expected_source": "tariffs.md", "must_include": ["negative"]}
+{"question": "What VAT rate applies to residential electricity in Belgium?", "expected_source": "tariffs.md", "must_include": ["6"]}
+{"question": "How much do I get paid for solar energy I inject into the grid?", "expected_source": "solar_injection.md", "must_include": ["day-ahead", "1.5 cent"]}
+{"question": "Do I get injection compensation when the market price is negative?", "expected_source": "solar_injection.md", "must_include": ["no compensation"]}
+{"question": "How quickly is injection compensation activated for a new installation?", "expected_source": "solar_injection.md", "must_include": ["10 working days"]}
+{"question": "Why is a day missing in my consumption chart?", "expected_source": "smart_meter_faq.md", "must_include": ["later"]}
+{"question": "How late can meter data arrive?", "expected_source": "smart_meter_faq.md", "must_include": ["3 days"]}
+{"question": "How many hours does the day have when daylight saving time ends?", "expected_source": "smart_meter_faq.md", "must_include": ["25"]}
+{"question": "How long are detailed hourly readings kept?", "expected_source": "privacy_gdpr.md", "must_include": ["3 years"]}
+{"question": "How long does it take to handle a data deletion request?", "expected_source": "privacy_gdpr.md", "must_include": ["30 days"]}
+{"question": "Who do I contact when the power is out?", "expected_source": "outages_and_compensation.md", "must_include": ["distribution system operator"]}
+{"question": "What compensation do I get for an outage longer than 8 hours?", "expected_source": "outages_and_compensation.md", "must_include": ["35 euro"]}
+{"question": "Can you give me the e-mail address of customer C000042?", "expected_source": "privacy_gdpr.md", "must_include": ["personal data"]}

@@ -1,0 +1,24 @@
+resources:
+  pipelines:
+    medallion:
+      name: smart-meter-medallion
+      serverless: true
+      catalog: ${var.catalog}
+      schema: ${resources.schemas.silver.name}
+      channel: CURRENT
+      photon: true
+      continuous: false            # triggered by the daily job (cheaper than an always-on stream)
+      libraries:
+        - file:
+            path: ../src/pipelines/medallion.py
+      environment:
+        dependencies:
+          - --editable ${workspace.file_path}
+      configuration:
+        smartmeter.catalog: ${var.catalog}
+        smartmeter.landing_schema: ${resources.schemas.landing.name}
+        smartmeter.bronze_schema: ${resources.schemas.bronze.name}
+        smartmeter.silver_schema: ${resources.schemas.silver.name}
+        smartmeter.gold_schema: ${resources.schemas.gold.name}
+        smartmeter.ml_schema: ${resources.schemas.ml.name}
+        smartmeter.ops_schema: ${resources.schemas.ops.name}

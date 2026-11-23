@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "smartmeter"
+version = "0.1.0"
+description = "Smart-meter lakehouse on Databricks: medallion pipelines, dimensional model, data quality, ML and RAG."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.23",
+    "pandas>=1.5",
+    "pyarrow>=12",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pyspark==3.5.3",
+    "pytest>=7",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+# Entry point used by the python_wheel_task in resources/daily_ingest.job.yml
+generate_sources = "smartmeter.cli:generate_main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/smartmeter"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+extend-exclude = ["legacy"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["UP006", "UP007", "UP035"]
+
+[tool.ruff.lint.per-file-ignores]
+# Databricks notebooks use injected globals (spark, dbutils, display) and magic commands.
+"notebooks/*" = ["F821", "E402", "I001"]
+"src/pipelines/*" = ["F821", "E402"]
+"tests/*" = ["E402"]
