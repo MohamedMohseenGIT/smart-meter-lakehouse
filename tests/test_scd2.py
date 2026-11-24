@@ -18,7 +18,6 @@ def current_dim(spark, rows):
 def as_dict(df):
     return sorted((r.customer_key, str(r.valid_from), str(r.valid_to), r.is_current, r._action) for r in df.collect())
 
-
 def test_changes_unchanged_and_new_customers(spark):
     current = current_dim(spark, [("c1", "fixed", "Flanders", "2026-01-01"),
                                   ("c2", "variable", "Brussels", "2026-01-01")])
